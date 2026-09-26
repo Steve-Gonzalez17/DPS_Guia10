@@ -29,19 +29,15 @@ export default function CategoriesScreen({
     navigation,
 }: CategoriesScreenProps) {
 
-    // Categoría seleccionada
     const [selectedCategory, setSelectedCategory] =
         useState<string>("Todas");
 
-    // Recetas obtenidas de la API
     const [recipes, setRecipes] =
         useState<Receta[]>([]);
 
-    // Estado de carga
     const [loading, setLoading] =
         useState<boolean>(true);
 
-    // Cargar recetas al abrir la pantalla
     useEffect(() => {
         loadRecipes();
     }, []);
@@ -72,16 +68,6 @@ export default function CategoriesScreen({
         }
     };
 
-    /*
-     * FILTRAR RECETAS
-     *
-     * Si está seleccionada "Todas",
-     * mostramos todas las recetas.
-     *
-     * Si se selecciona una categoría,
-     * mostramos únicamente las recetas
-     * pertenecientes a esa categoría.
-     */
     const filteredRecipes = recipes.filter((recipe: Receta) => {
 
         if (selectedCategory === "Todas") {
@@ -94,7 +80,6 @@ export default function CategoriesScreen({
         );
     });
 
-    // Pantalla de carga
     if (loading) {
         return (
             <View style={styles.loading}>
@@ -115,12 +100,10 @@ export default function CategoriesScreen({
     return (
         <View style={styles.container}>
 
-            {/* TÍTULO */}
             <Text style={styles.title}>
                 Categorías
             </Text>
 
-            {/* CATEGORÍAS */}
             <FlatList
                 horizontal
                 data={categories}
@@ -155,12 +138,10 @@ export default function CategoriesScreen({
                 )}
             />
 
-            {/* TÍTULO DE LA CATEGORÍA SELECCIONADA */}
             <Text style={styles.resultTitle}>
                 {selectedCategory}
             </Text>
 
-            {/* RECETAS */}
             <FlatList
                 data={filteredRecipes}
                 keyExtractor={(item: Receta, index: number) =>
